@@ -19,3 +19,20 @@ resource "aws_lambda_function" "hello_lambda_function" {
   handler          = "main.lambda_handler"
   timeout          = 10
 }
+
+resource "aws_cloudwatch_event_rule" "cloudwatch_rule" {
+  name        = "cloudwatch-rule-lambda"
+  description = "Alarms based on ec2 events"
+  event_pattern = jsonencode({
+    "detail-type" : ["EC2 Instance Launch/terminate Successful"],
+    "source" : ["aws.ec2"],
+    detail = {
+      state = ["stopping", "pending"]
+    }
+  })
+}
+
+resource "aws_cloudwatch_event_target" "ec2_cloudevent_target" {
+  rule = aws_cloudwatch_event_rule.cloudwatch_rule.name
+  arn  = aws_lambda_function.hello_lambda_function.arn
+}
