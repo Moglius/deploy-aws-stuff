@@ -27,7 +27,7 @@ resource "aws_cloudwatch_event_rule" "cloudwatch_rule" {
     "detail-type" : ["EC2 Instance Launch/terminate Successful"],
     "source" : ["aws.ec2"],
     detail = {
-      state = ["stopping", "pending"]
+      state = ["running", "terminating"]
     }
   })
 }
