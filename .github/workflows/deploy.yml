@@ -36,6 +36,7 @@ jobs:
 
       - name: Terraform fmt
         id: fmt
+        working-directory: .src/terraform
         run: terraform fmt -check
         continue-on-error: true
 
@@ -44,14 +45,17 @@ jobs:
         env:
           AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
+        working-directory: .src/terraform
         run: terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}" -backend-config="region=${AWS_REGION}"
 
       - name: Terraform Validate
         id: validate
+        working-directory: .src/terraform
         run: terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
+        working-directory: .src/terraform
         run: terraform plan -no-color
         if: github.event_name == 'pull_request'
         continue-on-error: true
@@ -99,4 +103,5 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        working-directory: .src/terraform
         run: terraform apply -auto-approve -input=false
