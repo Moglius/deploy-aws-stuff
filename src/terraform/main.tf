@@ -40,7 +40,7 @@ resource "aws_cloudwatch_event_target" "ec2_cloudevent_target" {
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_hello" {
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.hello_lambda_function.name
+  function_name = aws_lambda_function.hello_lambda_function.function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.cloudwatch_rule.arn
 }
