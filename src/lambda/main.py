@@ -2,22 +2,34 @@ import boto3
 import json
 
 
-def lambda_handler(event, context):
+def get_instance_private_ip(instance_id, instance_state):
 
-    instance_id = json.loads(event['detail']['instance-id'])
-    instance_state = json.loads(event['detail']['state'])
-    print(f"instance ID: {instance_id}")
+    ec2 = boto3.client('ec2')
 
-    ec2 = boto3.resource('ec2')
-
-    response = ec2.describe_instances(
+    instance_data = ec2.describe_instances(
         InstanceIds=[instance_id],
     )
 
-    print("RESPONSE", response)
+    private_ip = '0.0.0.0'
+    if instance_state != 'terminated':
+        private_ip = instance_data['Reservations'][0]['Instances'][0]['PrivateIpAddress']
+    hostname = instance_data['Reservations'][0]['Instances'][0]['Tags'][0]['Value']
 
-    result = "Hello World"
+    return hostname, private_ip
+
+
+def lambda_handler(event, context):
+
+    instance_id, instance_state = event['detail']['instance-id'], event['detail']['state']
+
+    hostname, private_ip = get_instance_private_ip(instance_id, instance_state)
+
+    if instance_state == 'terminated':
+        print("launch cleanup", hostname, private_ip)
+    else:
+        print("launch create/update", hostname, private_ip)
+
     return {
         'statusCode' : 200,
-        'body': result
+        'body': "Hello World"
     }
