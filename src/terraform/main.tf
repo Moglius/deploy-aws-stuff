@@ -24,7 +24,11 @@ resource "aws_cloudwatch_event_rule" "cloudwatch_rule" {
   name        = "cloudwatch-rule-lambda"
   description = "Alarms based on ec2 events"
   event_pattern = jsonencode({
-    "source" : ["aws.ec2"]
+    "source" : ["aws.ec2"],
+    "detail-type" : ["EC2 Instance State-change Notification"],
+    "detail" : {
+      "state" : ["running", "terminated"]
+    }
   })
 }
 
