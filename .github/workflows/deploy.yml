@@ -1,9 +1,11 @@
 name: "Terraform deploy action"
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
   pull_request:
+
 permissions:
       id-token: write # This is required for aws oidc connection
       contents: read # This is required for actions/checkout
