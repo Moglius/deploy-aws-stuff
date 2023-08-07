@@ -26,8 +26,8 @@ resource "aws_lambda_function" "hello_lambda_function" {
   timeout          = 10
   environment {
     variables = {
-      HOSTED_ZONE_ID     = data.aws_route53_zone.localcloud_zone.zone_id
-      HOSTED_ZONE_DOMAIN = data.aws_route53_zone.localcloud_zone.name
+      HOSTED_ZONE_ID     = aws_route53_zone.localcloud_zone.zone_id
+      HOSTED_ZONE_DOMAIN = aws_route53_zone.localcloud_zone.name
     }
   }
 }
