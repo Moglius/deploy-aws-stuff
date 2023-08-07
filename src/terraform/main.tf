@@ -1,7 +1,8 @@
-data "aws_route53_zone" "localcloud_zone" {
-  name         = "localcloud.local."
-  private_zone = true
-  vpc_id       = "vpc-022211da1d6546ff3"
+resource "aws_route53_zone" "localcloud_zone" {
+  name = "localcloud.local."
+  vpc {
+    vpc_id = "vpc-022211da1d6546ff3"
+  }
 }
 
 resource "aws_ssm_parameter" "foo" {
@@ -26,8 +27,8 @@ resource "aws_lambda_function" "hello_lambda_function" {
   timeout          = 10
   environment {
     variables = {
-      HOSTED_ZONE_ID     = data.aws_route53_zone.localcloud_zone.zone_id
-      HOSTED_ZONE_DOMAIN = data.aws_route53_zone.localcloud_zone.name
+      HOSTED_ZONE_ID     = aws_route53_zone.localcloud_zone.zone_id
+      HOSTED_ZONE_DOMAIN = aws_route53_zone.localcloud_zone.name
     }
   }
 }
