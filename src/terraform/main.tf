@@ -1,7 +1,8 @@
 resource "aws_route53_zone" "localcloud_zone" {
-  name         = "localcloud.local."
-  private_zone = true
-  vpc_id       = "vpc-022211da1d6546ff3"
+  name = "localcloud.local."
+  vpc {
+    vpc_id = "vpc-022211da1d6546ff3"
+  }
 }
 
 resource "aws_ssm_parameter" "foo" {
