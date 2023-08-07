@@ -1,2 +1,8 @@
 # deploy-ssm-parameters
-Deploy SSM parameter in AWS
+Deploy DNS automation in AWS
+
+## Services
+
+1. Lambda
+2. EventBridge rule
+3. Route53
