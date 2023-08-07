@@ -1,3 +1,9 @@
+data "aws_route53_zone" "localcloud_zone" {
+  name         = "localcloud.local."
+  private_zone = true
+  vpc_id       = "vpc-022211da1d6546ff3"
+}
+
 resource "aws_ssm_parameter" "foo" {
   name  = "foo"
   type  = "String"
@@ -18,6 +24,12 @@ resource "aws_lambda_function" "hello_lambda_function" {
   runtime          = "python3.9"
   handler          = "main.lambda_handler"
   timeout          = 10
+  environment {
+    variables = {
+      HOSTED_ZONE_ID     = data.aws_route53_zone.localcloud_zone.zone_id
+      HOSTED_ZONE_DOMAIN = data.aws_route53_zone.localcloud_zone.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_event_rule" "cloudwatch_rule" {
