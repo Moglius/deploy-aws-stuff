@@ -20,7 +20,8 @@ resource "aws_iam_role_policy_attachment" "test-attach" {
   for_each = toset([
     "arn:aws:iam::aws:policy/AWSLambdaExecute",
     "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess",
-    "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
+    "arn:aws:iam::aws:policy/AmazonRoute53FullAccess",
+    "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
   ])
 
   role       = aws_iam_role.lambda_role.name
