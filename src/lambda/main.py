@@ -1,7 +1,8 @@
 import boto3
 import json
 import os
-from datetime import datetime
+from datetime import date
+
 
 ZONE_ID = os.environ['HOSTED_ZONE_ID']
 ZONE_DOMAIN = os.environ['HOSTED_ZONE_DOMAIN']
@@ -15,7 +16,8 @@ def perform_dynamodb_update(hostname, ip_address,status):
 
     response = table.put_item(
        Item={
-            "date": datetime.now(),
+            "DNSId": str(hash(hostname)),
+            "date": str(date.today()),
             "hostname": hostname,
             "ip_address": ip_address,
             "status": status
@@ -98,12 +100,12 @@ def lambda_handler(event, context):
     if instance_state == 'terminated':
         print("launch cleanup", hostname, private_ip)
         output = delete_dns_record(hostname, private_ip)
-        perform_dynamodb_update(hostname, private_ip, 'CREATED')
+        perform_dynamodb_update(hostname, private_ip, 'DELETED')
         print(output)
     else:
         print("launch create/update", hostname, private_ip)
         output = create_or_update_dns_record(hostname, private_ip)
-        perform_dynamodb_update(hostname, private_ip, "DELETED")
+        perform_dynamodb_update(hostname, private_ip, "CREATED")
         print(output)
 
     return {
