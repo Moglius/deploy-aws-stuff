@@ -6,8 +6,10 @@ resource "aws_route53_zone" "localcloud_zone" {
 }
 
 resource "aws_dynamodb_table" "dns-dynamodb-table" {
-  name     = "DNSData"
-  hash_key = "DNSId"
+  name           = "DNSData"
+  hash_key       = "DNSId"
+  read_capacity  = 1
+  write_capacity = 1
 
   attribute {
     name = "DNSId"
