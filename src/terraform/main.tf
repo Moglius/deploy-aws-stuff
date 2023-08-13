@@ -10,7 +10,7 @@ resource "aws_dynamodb_table" "dns-dynamodb-table" {
   hash_key = "DNSId"
 
   attribute {
-    name = "EmployeeId"
+    name = "DNSId"
     type = "S"
   }
 }
