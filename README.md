@@ -1,4 +1,4 @@
-# deploy-ssm-parameters
+# Deploy AWS stuffs
 Deploy DNS automation in AWS
 
 ## Services
