@@ -5,6 +5,18 @@ resource "aws_route53_zone" "localcloud_zone" {
   }
 }
 
+resource "aws_dynamodb_table" "dns-dynamodb-table" {
+  name           = "DNSData"
+  hash_key       = "DNSId"
+  read_capacity  = 1
+  write_capacity = 1
+
+  attribute {
+    name = "DNSId"
+    type = "S"
+  }
+}
+
 resource "aws_ssm_parameter" "foo" {
   name  = "foo"
   type  = "String"
@@ -29,6 +41,7 @@ resource "aws_lambda_function" "hello_lambda_function" {
     variables = {
       HOSTED_ZONE_ID     = aws_route53_zone.localcloud_zone.zone_id
       HOSTED_ZONE_DOMAIN = aws_route53_zone.localcloud_zone.name
+      DYNAMODB_TABLE     = aws_dynamodb_table.dns-dynamodb-table.name
     }
   }
 }
