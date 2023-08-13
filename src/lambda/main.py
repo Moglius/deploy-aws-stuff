@@ -1,9 +1,27 @@
 import boto3
 import json
 import os
+from datetime import datetime
 
 ZONE_ID = os.environ['HOSTED_ZONE_ID']
-zone_domain = os.environ['HOSTED_ZONE_DOMAIN']
+ZONE_DOMAIN = os.environ['HOSTED_ZONE_DOMAIN']
+DYNAMODB_TABLE = os.environ['DYNAMODB_TABLE']
+
+
+def perform_dynamodb_update(hostname, ip_address,status):
+    dynamodb = boto3.resource('dynamodb')
+
+    table = dynamodb.Table(DYNAMODB_TABLE)
+
+    response = table.put_item(
+       Item={
+            "date": datetime.now(),
+            "hostname": hostname,
+            "ip_address": ip_address,
+            "status": status
+        }
+    )
+    return response
 
 def get_instance_private_ip(instance_id, instance_state):
 
@@ -31,7 +49,7 @@ def perform_route53_update(route53, action, hostname, private_ip):
                     {
                         "Action": action,
                         "ResourceRecordSet": {
-                            "Name": f"{hostname}.{zone_domain}",
+                            "Name": f"{hostname}.{ZONE_DOMAIN}",
                             "Type": 'A',
                             "TTL": 60,
                             "ResourceRecords": [
@@ -61,7 +79,7 @@ def delete_dns_record(hostname, private_ip):
 
     response = route53.list_resource_record_sets(
         HostedZoneId=ZONE_ID,
-        StartRecordName=f"{hostname}.{zone_domain}"
+        StartRecordName=f"{hostname}.{ZONE_DOMAIN}"
     )
 
     private_ip = response['ResourceRecordSets'][0]['ResourceRecords'][0]['Value']
@@ -80,10 +98,12 @@ def lambda_handler(event, context):
     if instance_state == 'terminated':
         print("launch cleanup", hostname, private_ip)
         output = delete_dns_record(hostname, private_ip)
+        perform_dynamodb_update(hostname, private_ip, 'CREATED')
         print(output)
     else:
         print("launch create/update", hostname, private_ip)
         output = create_or_update_dns_record(hostname, private_ip)
+        perform_dynamodb_update(hostname, private_ip, "DELETED")
         print(output)
 
     return {
