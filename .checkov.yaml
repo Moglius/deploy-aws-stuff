@@ -1,0 +1,33 @@
+block-list-secret-scan: []
+branch: main
+directory:
+- .
+download-external-modules: false
+evaluate-variables: true
+framework:
+- terraform
+- github_actions
+- cloudformation
+mask: []
+output:
+- sarif
+quiet: true
+secrets-history-timeout: 12h
+secrets-scan-file-type: []
+summary-position: top
+skip-check:
+- CKV_TF_1
+- CKV2_GHA_1
+- CKV_AWS_28
+- CKV_AWS_119
+- CKV_AWS_337
+- CKV_AWS_173
+- CKV_AWS_117
+- CKV_AWS_116
+- CKV_AWS_50
+- CKV_AWS_272
+- CKV_AWS_115
+- CKV2_AWS_16
+- CKV2_AWS_39
+- CKV2_AWS_38
+- CKV2_AWS_34
