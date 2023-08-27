@@ -1,3 +1,8 @@
-# Deploy stuffs in AWS
+# Deploy AWS stuffs
+Deploy DNS automation in AWS
 
-A new way to deploy
+## Services
+
+1. Lambda
+2. EventBridge rule
+3. Route53
