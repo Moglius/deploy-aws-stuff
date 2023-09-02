@@ -11,7 +11,7 @@ env:
   TF_LOG: INFO
   AWS_REGION: ${{ secrets.AWS_REGION }}
 jobs:
-  destroy:
+  create_pr:
     runs-on: ubuntu-latest
     defaults:
       run:
