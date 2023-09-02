@@ -38,6 +38,10 @@ repos:
   hooks:
     - id: terraform-docs-go
       args: ["markdown", "table", "--output-file", "README.md", "./src/terraform"]
+- repo: https://github.com/rhysd/actionlint
+  rev: v1.6.25
+  hooks:
+    - id: actionlint
 - repo: https://github.com/antonbabenko/pre-commit-terraform
   rev: v1.83.0
   hooks:

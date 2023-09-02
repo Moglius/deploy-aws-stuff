@@ -42,3 +42,4 @@ results.sarif
 **.terraform.lock*
 .coverage
 .pytest_cache
+.mystuffs.txt
