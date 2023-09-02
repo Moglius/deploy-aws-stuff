@@ -19,10 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Configure AWS credentials from AWS account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-session-name: GitHub-OIDC-TERRAFORM
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Make changes to pull request
         run: |
-          ls
-          date +%s >> src/data/report.txt
+          pip install boto3
+          python src/dynamo/get_items.py >> src/data/report.txt
+          cat src/data/report.txt | sort | uniq > src/data/report.txt
 
       - name: Create Pull Request
         id: cpr
