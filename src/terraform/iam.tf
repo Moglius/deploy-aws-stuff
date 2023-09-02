@@ -16,7 +16,7 @@ resource "aws_iam_role" "lambda_role" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "test-attach" {
+resource "aws_iam_role_policy_attachment" "test_attach" {
   for_each = toset([
     "arn:aws:iam::aws:policy/AWSLambdaExecute",
     "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess",
