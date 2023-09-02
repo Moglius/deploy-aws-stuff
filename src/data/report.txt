@@ -1,1 +1,5 @@
+dbserver1:us-east-1:t3.micro
+webserver1:us-east-2:t3.nano
+webserver2:us-east-2:t3.micro
 webserver3:us-east-1:t3.nano
+webserver4:us-east-2:t2.nano
