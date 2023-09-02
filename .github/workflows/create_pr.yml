@@ -36,6 +36,7 @@ jobs:
           cp -pa src/data/report.txt src/data/report_temp.txt
           python src/dynamo/get_items.py >> src/data/report_temp.txt
           cat src/data/report_temp.txt | sort | uniq > src/data/report.txt
+          rm -f src/data/report_temp.txt
 
       - name: Create Pull Request
         id: cpr
