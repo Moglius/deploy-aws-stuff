@@ -18,6 +18,7 @@ repos:
     - id: end-of-file-fixer
     - id: name-tests-test
     - id: no-commit-to-branch
+    - id: requirements-txt-fixer
     - id: pretty-format-json
       args:
         - --autofix
@@ -26,12 +27,17 @@ repos:
   hooks:
     - id: gitleaks
 - repo: https://github.com/bridgecrewio/checkov.git
-  rev: 2.4.14
+  rev: 2.4.22
   hooks:
     - id: checkov
       args:
         - --config-file
         - .checkov.yaml
+- repo: https://github.com/terraform-docs/terraform-docs
+  rev: "v0.16.0"
+  hooks:
+    - id: terraform-docs-go
+      args: ["markdown", "table", "--output-file", "README.md", "./src/terraform"]
 - repo: https://github.com/antonbabenko/pre-commit-terraform
   rev: v1.83.0
   hooks:
@@ -39,9 +45,6 @@ repos:
     - id: terraform_validate
       args:
       - --hook-config=--retry-once-with-cleanup=true
-    - id: terraform_docs
-      args:
-        - --args=--config=.terraform-docs.yaml
     - id: terraform_tflint
       args:
         - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
@@ -67,7 +70,7 @@ repos:
   hooks:
     - id: pytest
       name: pytest
-      entry: pytest
+      entry: env HOSTED_ZONE_ID=local HOSTED_ZONE_DOMAIN=test DYNAMODB_TABLE=test pytest
       args:
         - ./tests/unit_tests
       language: system

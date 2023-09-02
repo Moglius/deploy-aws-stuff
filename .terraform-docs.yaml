@@ -1,5 +1,5 @@
 formatter: markdown
-header-from: main.tf
+header-from: "main.tf"
 
 settings:
   anchor: true
@@ -18,5 +18,5 @@ sort:
   by: required
 
 output:
-  file: ../../README.md
+  file: README.md
   mode: inject
