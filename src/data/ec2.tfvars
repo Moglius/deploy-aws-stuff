@@ -15,8 +15,18 @@ configuration = [
     "region" : "us-east-2"
   },
   {
+    "name" : "appserver1",
+    "type" : "ap-southeast-1",
+    "region" : "t3.micro"
+  },
+  {
     "name" : "webserver1",
     "type" : "us-east-2",
     "region" : "t3.nano"
+  },
+  {
+    "name" : "webserver2",
+    "type" : "us-east-1",
+    "region" : "t3.micro"
   }
 ]
