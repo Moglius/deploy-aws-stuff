@@ -1,10 +1,6 @@
 import json
 
-import boto3
 import hcl2
-
-TEMP_FILE_PATH = "src/data/ec2.tfvars.temp"
-FILE_PATH = "src/data/ec2.tfvars"
 
 
 class EC2:
@@ -39,29 +35,10 @@ class EC2:
         }
 
 
-def scan_table(dynamo_client, *, TableName, **kwargs):
-    paginator = dynamo_client.get_paginator("scan")
-
-    for page in paginator.paginate(TableName=TableName, **kwargs):
-        yield from page["Items"]
-
-
 if __name__ == "__main__":
-    dynamo_client = boto3.client("dynamodb")
-    uniq_set = set()
-
-    for item in scan_table(dynamo_client, TableName="ec2_instances"):
-        ec2_instance = EC2(
-            {
-                "name": item["name"]["S"],
-                "type": item["region"]["S"],
-                "region": item["type"]["S"],
-            }
-        )
-        uniq_set.add(ec2_instance)
-
-    with open(TEMP_FILE_PATH, "r") as file, open(FILE_PATH, "w") as outfile:
+    with open("../data/ec2.tfvars", "r") as file:
         dictionary = hcl2.load(file)
+        uniq_set = set()
 
         for item in dictionary["configuration"]:
             ec2_instance = EC2(item)
@@ -73,4 +50,5 @@ if __name__ == "__main__":
 
         json_object = json.dumps(mylist, indent=2)
 
-        outfile.write(f"configuration = {json_object}\n")
+        with open("sample.tfvars", "w") as outfile:
+            outfile.write(f"configuration = {json_object}")
