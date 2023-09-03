@@ -37,6 +37,16 @@ jobs:
           python src/dynamo/get_items.py
           rm -f src/data/ec2.tfvars.temp
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.0
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt src/data/
+        continue-on-error: true
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
