@@ -50,7 +50,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -var-file=../data/ec2.tfvars
         continue-on-error: true
 
       - name: Terraform Plan Status
@@ -58,4 +58,4 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false -var-file=../data/ec2.tfvars
