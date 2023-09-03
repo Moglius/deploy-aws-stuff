@@ -48,7 +48,8 @@ def scan_table(dynamo_client, *, TableName, **kwargs):
 
 if __name__ == "__main__":
     dynamo_client = boto3.client("dynamodb")
-    uniq_set = set()
+    operation_set = set()
+    retired_set = set()
 
     for item in scan_table(dynamo_client, TableName="ec2_instances"):
         ec2_instance = EC2(
@@ -58,17 +59,24 @@ if __name__ == "__main__":
                 "region": item["region"]["S"],
             }
         )
-        uniq_set.add(ec2_instance)
+        if item["operational"]["BOOL"]:
+            operation_set.add(ec2_instance)
+        else:
+            retired_set.add(ec2_instance)
 
     with open(TEMP_FILE_PATH, "r") as file, open(FILE_PATH, "w") as outfile:
         dictionary = hcl2.load(file)
 
         for item in dictionary["configuration"]:
             ec2_instance = EC2(item)
-            uniq_set.add(ec2_instance)
+            operation_set.add(ec2_instance)
+
+        final_set = operation_set - retired_set
+
+        print(final_set)
 
         mylist = []
-        for server in sorted(uniq_set):
+        for server in sorted(final_set):
             mylist.append(server.get_json_data())
 
         json_object = json.dumps(mylist, indent=2)
