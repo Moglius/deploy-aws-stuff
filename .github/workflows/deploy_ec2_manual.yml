@@ -1,4 +1,4 @@
-name: "Terraform deploy DNS infra manual"
+name: "Terraform deploy EC2 infra manual"
 on:
   workflow_dispatch:
 
