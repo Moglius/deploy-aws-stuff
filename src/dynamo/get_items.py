@@ -54,8 +54,8 @@ if __name__ == "__main__":
         ec2_instance = EC2(
             {
                 "name": item["name"]["S"],
-                "type": item["region"]["S"],
-                "region": item["type"]["S"],
+                "type": item["type"]["S"],
+                "region": item["region"]["S"],
             }
         )
         uniq_set.add(ec2_instance)
