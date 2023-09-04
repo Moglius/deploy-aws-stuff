@@ -12,6 +12,7 @@ class EC2:
         self.name = data_item["name"]
         self.region = data_item["region"]
         self.type = data_item["type"]
+        self.ami_filter = data_item["ami_filter"]
 
     def __eq__(self, other):
         return self.name == other.name
@@ -36,6 +37,7 @@ class EC2:
             "name": self.name,
             "type": self.type,
             "region": self.region,
+            "ami_filter": self.ami_filter,
         }
 
 
@@ -57,6 +59,7 @@ if __name__ == "__main__":
                 "name": item["name"]["S"],
                 "type": item["type"]["S"],
                 "region": item["region"]["S"],
+                "ami_filter": item["ami_filter"]["S"],
             }
         )
         if item["operational"]["BOOL"]:
