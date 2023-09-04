@@ -44,3 +44,5 @@ results.sarif
 .coverage
 .pytest_cache
 .mystuffs.txt
+src/terraform2/tfplan.out
+src/terraform2/main2.tf.version
