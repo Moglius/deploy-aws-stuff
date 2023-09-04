@@ -1,5 +1,9 @@
 variable "configuration" {
-  description = "The total configuration, List of Objects/Dictionary"
-  type        = list(map(string))
-  default     = [{}]
+  description = "AWS EC2 instances"
+  type = list(object({
+    name       = string
+    type       = string
+    region     = string
+    ami_filter = string
+  }))
 }
