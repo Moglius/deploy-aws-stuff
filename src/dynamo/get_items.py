@@ -86,6 +86,7 @@ class EC2:
             "type": self.type,
             "region": self.region,
             "ami_id": self.ami_id,
+            "ami_filter": self.ami_filter,
         }
 
     def set_ami_id(self, ami_id):
