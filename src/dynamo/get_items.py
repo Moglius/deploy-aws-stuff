@@ -81,6 +81,7 @@ class EC2:
 
     def get_json_data(self):
         return {
+            "id": self.id,
             "name": self.name,
             "type": self.type,
             "region": self.region,
