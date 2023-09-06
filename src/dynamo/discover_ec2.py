@@ -38,6 +38,7 @@ def dynamo_build_item(instance):
     return {
         "id": ec2_get_instance_name(instance),
         "name": ec2_get_instance_name(instance),
+        "instance_id": instance.instance_id,
         "ami_filter": "N/A",
         "ami_id": instance.image_id,
         "discovered": True,
