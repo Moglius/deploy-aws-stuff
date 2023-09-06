@@ -46,3 +46,4 @@ results.sarif
 .mystuffs.txt
 src/terraform2/tfplan.out
 src/terraform2/main2.tf.version
+src/dynamo/ec2_instances.json
