@@ -4,8 +4,8 @@ import boto3
 
 AWS_DB_TABLE_NAME = "ec2_instances"
 AWS_REGION = "us-east-2"
-TEMPLATE_PATH = "../data/import.tpl"
-IMPORT_FILE_PATH = "../terraform2/import.tf"
+TEMPLATE_PATH = "src/data/import.tpl"
+IMPORT_FILE_PATH = "src/terraform2/import.tf"
 
 
 def scan_table(*, TableName, **kwargs):
