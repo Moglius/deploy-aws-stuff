@@ -58,7 +58,7 @@ class EC2:
         return (self.name) >= (other.name)
 
     def __hash__(self):
-        return hash((self.name, self.region, self.type))
+        return hash((self.name, self.id))
 
     def get_ami_id(self):
         return self.ami_id
