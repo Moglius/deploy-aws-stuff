@@ -26,7 +26,7 @@ configuration = [
   {
     "id" : "www",
     "name" : "www",
-    "type" : "t3.micro",
+    "type" : "t2.micro",
     "region" : "us-east-2",
     "ami_id" : "ami-0cf0e376c672104d6",
     "ami_filter" : "N/A"
