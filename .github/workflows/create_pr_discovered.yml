@@ -1,4 +1,4 @@
-name: "Create PR New Instances"
+name: "Create PR discovered"
 on:
   workflow_dispatch:
 
