@@ -1,8 +1,0 @@
-dbserver1:us-east-1:t3.micro
-dbserver2:us-east-1:t3.nano
-proxyserver1:us-east-2:t3.nano
-proxyserver2:us-east-2:t3.nano
-webserver1:us-east-2:t3.nano
-webserver2:us-east-2:t3.micro
-webserver3:us-east-1:t3.nano
-webserver4:us-east-2:t2.nano
