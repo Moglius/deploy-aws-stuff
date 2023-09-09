@@ -7,6 +7,11 @@ on:
     paths:
       - 'src/data/**'
 
+# https://stackoverflow.com/questions/70928424/limit-github-action-workflow-concurrency-on-push-and-pull-request
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
       id-token: write # This is required for aws oidc connection
       contents: read # This is required for actions/checkout
