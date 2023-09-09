@@ -35,8 +35,11 @@ def get_json(ec2_instance):
         "name": ec2_instance["name"]["S"],
         "type": ec2_instance["type"]["S"],
         "region": ec2_instance["region"]["S"],
+        "subnet_id": ec2_instance["subnet_id"]["S"],
         "ami_id": ec2_instance["ami_id"]["S"],
         "ami_filter": ec2_instance["ami_filter"]["S"],
+        "root_block_device": ec2_instance["root_block_device"]["M"],
+        "ebs_block_devices": ec2_instance["ebs_block_devices"]["L"],
     }
 
 

@@ -34,18 +34,61 @@ def instance_in_dynamo(instance):
     return "Item" in ec2_table.get_item(Key={"id": ec2_get_instance_name(instance)})
 
 
+def get_root_device_id(instance):
+    root_device = instance.root_device_name
+    root_vol_id = ""
+    vol_to_name = {}
+
+    for volume in instance.block_device_mappings:
+        vol_to_name[volume["Ebs"]["VolumeId"]] = volume["DeviceName"]
+
+        if root_device == volume["DeviceName"]:
+            root_vol_id = volume["Ebs"]["VolumeId"]
+
+    return root_vol_id, vol_to_name
+
+
+def get_extra_volumes(instance, root_vol_id, vol_to_name):
+    extra_volumes = []
+    for volume in instance.volumes.all():
+        if volume.id != root_vol_id:
+            ebs_volume = {
+                "device_name": vol_to_name[volume.id],
+                "volume_size": volume.size,
+                "volume_type": volume.volume_type,
+            }
+            extra_volumes.append(ebs_volume)
+
+    return extra_volumes
+
+
+def get_root_volume(instance, root_vol_id, vol_to_name):
+    for volume in instance.volumes.all():
+        if volume.id == root_vol_id:
+            return {
+                "device_name": vol_to_name[volume.id],
+                "volume_size": volume.size,
+                "volume_type": volume.volume_type,
+            }
+
+
 def dynamo_build_item(instance):
+    root_vol_id, vol_to_name = get_root_device_id(instance)
+
     return {
         "id": ec2_get_instance_name(instance),
         "name": ec2_get_instance_name(instance),
         "instance_id": instance.instance_id,
+        "subnet_id": instance.subnet_id,
         "ami_filter": "N/A",
         "ami_id": instance.image_id,
         "discovered": True,
         "imported": False,
         "operational": True,
         "region": AWS_REGION,
-        "type": "t3.micro",
+        "type": instance.instance_type,
+        "root_block_device": get_root_volume(instance, root_vol_id, vol_to_name),
+        "ebs_block_devices": get_extra_volumes(instance, root_vol_id, vol_to_name),
     }
 
 
