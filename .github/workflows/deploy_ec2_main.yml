@@ -70,6 +70,7 @@ jobs:
           python-version: '3.11'
 
       - name: set imported to true if necessary
+        working-directory: src/terraform2
         run: |
           pip install boto3 python-hcl2
           python src/dynamo/update_state_ec2.py
