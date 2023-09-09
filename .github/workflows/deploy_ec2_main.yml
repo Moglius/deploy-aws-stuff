@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - src/data/**
+      - 'src/data/**'
 
 permissions:
       id-token: write # This is required for aws oidc connection
