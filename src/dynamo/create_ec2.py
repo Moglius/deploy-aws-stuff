@@ -74,7 +74,7 @@ def get_least_used_subnet_id():
     return subnet_id
 
 
-def ec2_should_be_added():
+def ec2_should_be_added(item):
     return (item["discovered"]["BOOL"] is False) or (
         item["discovered"]["BOOL"] and item["imported"]["BOOL"]
     )
