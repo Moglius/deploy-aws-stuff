@@ -37,6 +37,7 @@ jobs:
 
       - name: Make changes to pull request
         run: |
+          echo > src/terraform2/import.tf
           pip install boto3 python-hcl2
           cp -pa src/data/ec2.tfvars src/data/ec2.tfvars.temp
           python src/dynamo/import_ec2.py
