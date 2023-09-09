@@ -75,17 +75,26 @@ class EC2:
     def get_primary_key(self):
         return self.id
 
+    def get_value(self, block, key1, key2):
+        if isinstance(block[key1], dict):
+            return block[key1][key2]
+        else:
+            return block[key1]
+
     def get_block_device(self, block):
         return {
-            "device_name": block["device_name"]["S"],
-            "volume_size": block["volume_size"]["N"],
-            "volume_type": block["volume_type"]["S"],
+            "device_name": self.get_value(block, "device_name", "S"),
+            "volume_size": self.get_value(block, "volume_size", "N"),
+            "volume_type": self.get_value(block, "volume_type", "S"),
         }
 
     def get_ebs_block_devices(self, extra_blocks):
         block_list = []
         for block in extra_blocks:
-            block_list.append(self.get_block_device(block["M"]))
+            if "M" in block:
+                block_list.append(self.get_block_device(block["M"]))
+            else:
+                block_list.append(self.get_block_device(block))
 
         return block_list
 
