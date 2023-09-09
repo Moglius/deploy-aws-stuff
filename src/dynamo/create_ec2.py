@@ -74,12 +74,18 @@ def get_least_used_subnet_id():
     return subnet_id
 
 
+def ec2_should_be_added():
+    return (item["discovered"]["BOOL"] is False) or (
+        item["discovered"]["BOOL"] and item["imported"]["BOOL"]
+    )
+
+
 if __name__ == "__main__":
     operation_set = set()
     retired_set = set()
 
     for item in scan_table(TableName=AWS_DB_TABLE_NAME):
-        if item["discovered"]["BOOL"] is False:
+        if ec2_should_be_added(item):
             ec2_instance = EC2(
                 {
                     "id": item["id"]["S"],
