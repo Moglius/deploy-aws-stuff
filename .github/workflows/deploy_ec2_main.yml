@@ -64,3 +64,12 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false -var-file=../data/ec2.tfvars
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: set imported to true if necessary
+        run: |
+          pip install boto3 python-hcl2
+          python src/dynamo/update_state_ec2.py
