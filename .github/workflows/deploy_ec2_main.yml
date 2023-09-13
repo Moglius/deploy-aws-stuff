@@ -80,6 +80,7 @@ jobs:
           python src/dynamo/update_state_ec2.py
 
       - name: Make changes to pull request
+        working-directory: .
         run: |
           > src/terraform2/import.tf
 
