@@ -78,3 +78,28 @@ jobs:
         run: |
           pip install boto3 python-hcl2
           python src/dynamo/update_state_ec2.py
+
+      - name: Make changes to pull request
+        run: |
+          > src/terraform2/import.tf
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: Remove import file
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: import/removeimport
+          delete-branch: true
+          title: '[Import] Remove import file'
+          body: |
+            Remove import file
+
+          labels: |
+            ec2
+            automated pr
+            import
+          draft: false
