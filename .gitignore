@@ -47,3 +47,5 @@ results.sarif
 src/terraform2/tfplan.out
 src/terraform2/main2.tf.version
 src/dynamo/ec2_instances.json
+src/snow/db.sqlite3
+src/importer/tfplan.out
