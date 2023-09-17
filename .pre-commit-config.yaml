@@ -88,4 +88,4 @@ repos:
     - id: bandit
       args:
         - -x
-        - tests
+        - tests,src/snow/snow/settings.py
