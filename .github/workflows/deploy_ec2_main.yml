@@ -24,7 +24,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: src/terraform2
+        working-directory: src/tf_ec2
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
@@ -82,7 +82,7 @@ jobs:
       - name: Make changes to pull request
         working-directory: .
         run: |
-          > src/terraform2/import.tf
+          > src/tf_ec2/import.tf
 
       - name: Create Pull Request
         id: cpr

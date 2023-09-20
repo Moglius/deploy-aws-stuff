@@ -1,7 +1,7 @@
 import boto3
 import hcl2
 
-FILE_PATH = "src/terraform2/import.tf"
+FILE_PATH = "src/tf_ec2/import.tf"
 AWS_DB_TABLE_NAME = "ec2_instances"
 
 

@@ -8,7 +8,7 @@ from ec2_classes import EC2
 AWS_DB_TABLE_NAME = "ec2_instances"
 AWS_REGION = "us-east-2"
 TEMPLATE_PATH = "src/data/import.tpl"
-IMPORT_FILE_PATH = "src/terraform2/import.tf"
+IMPORT_FILE_PATH = "src/tf_ec2/import.tf"
 TEMP_FILE_PATH = "src/data/ec2.tfvars.temp"
 FILE_PATH = "src/data/ec2.tfvars"
 

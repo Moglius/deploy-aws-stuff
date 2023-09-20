@@ -116,3 +116,65 @@ class EC2:
 
     def set_subnet_id(self, subnet_id):
         self.subnet_id = subnet_id
+
+
+class EBS:
+    def __init__(
+        self,
+        instance_name,
+        instance_id,
+        volume_type,
+        volume_size,
+        instance_az,
+        device_name,
+        volume_id="",
+    ):
+        self.instance_name = instance_name
+        self.instance_id = instance_id
+        self.volume_type = volume_type
+        self.volume_size = volume_size
+        self.instance_az = instance_az
+        self.device_name = device_name
+        self.volume_id = volume_id
+
+    def _get_virtual_name(self):
+        return f"{self.instance_name}-{self.device_name}"
+
+    def __eq__(self, other):
+        return self._get_virtual_name() == other._get_virtual_name()
+
+    def __lt__(self, other):
+        return (self._get_virtual_name()) < (other._get_virtual_name())
+
+    def __gt__(self, other):
+        return (self._get_virtual_name()) > (other._get_virtual_name())
+
+    def __le__(self, other):
+        return (self._get_virtual_name()) <= (other._get_virtual_name())
+
+    def __ge__(self, other):
+        return (self._get_virtual_name()) >= (other._get_virtual_name())
+
+    def __hash__(self):
+        return hash(self._get_virtual_name())
+
+    def __str__(self):
+        return self._get_virtual_name()
+
+    def get_ebs_vol_json_data(self):
+        return {
+            "instance_name": self.instance_name,
+            "instance_id": self.instance_id,
+            "volume_type": self.volume_type,
+            "volume_size": self.volume_size,
+            "instance_az": self.instance_az,
+            "device_name": self.device_name,
+        }
+
+    def get_ebs_att_json_data(self):
+        return {
+            "instance_name": self.instance_name,
+            "instance_id": self.instance_id,
+            "device_name": self.device_name,
+            "volume_id": self.volume_id,
+        }

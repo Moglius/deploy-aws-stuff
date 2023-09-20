@@ -27,13 +27,4 @@ resource "aws_instance" "server" {
     volume_type = each.value.rootdisk.volume_type
     volume_size = each.value.rootdisk.volume_size
   }
-
-  dynamic "ebs_block_device" {
-    for_each = each.value.blockdisks
-    content {
-      volume_type = ebs_block_device.value.volume_type
-      volume_size = ebs_block_device.value.volume_size
-      device_name = ebs_block_device.value.device_name
-    }
-  }
 }

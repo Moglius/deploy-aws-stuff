@@ -37,7 +37,7 @@ repos:
   rev: "v0.16.0"
   hooks:
     - id: terraform-docs-go
-      args: ["markdown", "table", "--output-file", "README.md", "./src/terraform"]
+      args: ["markdown", "table", "--output-file", "README.md", "./src/tf_dns"]
 - repo: https://github.com/rhysd/actionlint
   rev: v1.6.25
   hooks:
@@ -47,7 +47,7 @@ repos:
   hooks:
     - id: terraform_fmt
     - id: terraform_validate
-      exclude: 'src/terraform2/ami_discovery/[^/]+$'
+      exclude: 'src/tf_ec2/ami_discovery/[^/]+$'
       args:
       - --hook-config=--retry-once-with-cleanup=true
     - id: terraform_tflint
@@ -66,7 +66,7 @@ repos:
   hooks:
     - id: flake8
       args:
-        - --ignore=B907,E203
+        - --ignore=B907,E203,W503
       additional_dependencies:
         - flake8-bugbear
         - flake8-comprehensions
