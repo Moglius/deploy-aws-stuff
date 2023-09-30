@@ -8,6 +8,7 @@ locals {
         ami_id        = srv.ami_id
         rootdisk      = srv.root_block_device
         blockdisks    = srv.ebs_block_devices
+        tags          = srv.tags
       }
     ]
   ])
@@ -19,9 +20,8 @@ resource "aws_instance" "server" {
   ami           = each.value.ami_id
   instance_type = each.value.instance_type
   subnet_id     = each.value.subnet_id
-  tags = {
-    Name = each.value.instance_name
-  }
+
+  tags = each.value.tags
 
   root_block_device {
     volume_type = each.value.rootdisk.volume_type

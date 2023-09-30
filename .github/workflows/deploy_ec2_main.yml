@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/data/**'
+      - 'src/data/ec2.tfvars'
 
 # https://stackoverflow.com/questions/70928424/limit-github-action-workflow-concurrency-on-push-and-pull-request
 concurrency:

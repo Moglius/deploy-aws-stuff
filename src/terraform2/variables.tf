@@ -15,6 +15,7 @@ variable "configuration" {
       volume_size = number
       volume_type = string
     }))
+    tags = any
   }))
   default = [{
     name      = "value"
@@ -27,5 +28,6 @@ variable "configuration" {
       volume_size = 8
     }
     ebs_block_devices = []
+    tags              = {}
   }]
 }
