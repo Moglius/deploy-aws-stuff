@@ -14,7 +14,6 @@ crash.*.log
 # control as they are data points which are potentially sensitive and subject
 # to change depending on the environment.
 *.tfvars.temp
-*.tfvars
 *.tfvars.json
 
 # Ignore override files as they are usually used to override resources locally and so
@@ -49,3 +48,6 @@ src/terraform2/main2.tf.version
 src/dynamo/ec2_instances.json
 src/snow/db.sqlite3
 src/importer/tfplan.out
+src/data/albs_json.tfvars
+src/data/ebs_attachments.tfvars
+src/data/ebs_volumes.tfvars

@@ -97,6 +97,7 @@ if __name__ == "__main__":
                     "ami_filter": item["ami_filter"]["S"],
                     "root_block_device": item["root_block_device"]["M"],
                     "ebs_block_devices": item["ebs_block_devices"]["L"],
+                    "tags": item["tags"]["M"],
                 }
             )
 

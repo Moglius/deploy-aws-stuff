@@ -44,6 +44,7 @@ class EC2:
         self.ami_filter = data_item["ami_filter"]
         self.root_block_device = data_item["root_block_device"]
         self.ebs_block_devices = data_item["ebs_block_devices"]
+        self.tags = data_item["tags"]
 
     def __eq__(self, other):
         return self.name == other.name
@@ -98,6 +99,12 @@ class EC2:
 
         return block_list
 
+    def get_tags(self):
+        obj_json = {}
+        for key, value in self.tags.items():
+            obj_json[key] = value["S"] if "S" in value else value
+        return obj_json
+
     def get_json_data(self):
         return {
             "id": self.id,
@@ -109,6 +116,7 @@ class EC2:
             "ami_filter": self.ami_filter,
             "root_block_device": self.get_block_device(self.root_block_device),
             "ebs_block_devices": self.get_ebs_block_devices(self.ebs_block_devices),
+            "tags": self.get_tags(),
         }
 
     def set_ami_id(self, ami_id):
