@@ -1,5 +1,1 @@
-configuration = [
-  {
-    "name" : "srv2"
-  }
-]
+configuration = []
