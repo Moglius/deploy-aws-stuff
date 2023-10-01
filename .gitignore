@@ -51,3 +51,4 @@ src/importer/tfplan.out
 src/data/albs_json.tfvars
 src/data/ebs_attachments.tfvars
 src/data/ebs_volumes.tfvars
+src/tf_lb/providers.tf
