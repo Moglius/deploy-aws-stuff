@@ -17,6 +17,7 @@ def disable_termination_protection(instances):
         EC2_RES.Instance(instance.id).modify_attribute(
             DisableApiTermination={"Value": False}
         )
+        print(f"Termination protection disabled on {instance.id}.")
 
 
 def get_aws_instances_from_ec2_names(ec2_list):
