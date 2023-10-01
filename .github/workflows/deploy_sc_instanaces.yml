@@ -73,7 +73,7 @@ jobs:
       - name: Disable EC2 Termination Protection
         run: |
           pip install boto3
-          terraform plan -var-file=../data/sc_srvs.tfvars |grep destroyed | awk '{print $3}' | python ../dynamo/disable_protection.py
+          /bin/bash -c "terraform plan -var-file=../data/sc_srvs.tfvars |grep destroyed | awk '{print $3}' | python ../dynamo/disable_protection.py"
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false -var-file=../data/sc_srvs.tfvars
