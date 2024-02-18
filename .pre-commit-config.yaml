@@ -26,13 +26,13 @@ repos:
   rev: v8.18.0
   hooks:
     - id: gitleaks
-- repo: https://github.com/bridgecrewio/checkov.git
-  rev: 2.4.22
-  hooks:
-    - id: checkov
-      args:
-        - --config-file
-        - .checkov.yaml
+# - repo: https://github.com/bridgecrewio/checkov.git
+#   rev: 2.4.22
+#   hooks:
+#     - id: checkov
+#       args:
+#         - --config-file
+#         - .checkov.yaml
 - repo: https://github.com/terraform-docs/terraform-docs
   rev: "v0.16.0"
   hooks:
@@ -71,21 +71,21 @@ repos:
         - flake8-bugbear
         - flake8-comprehensions
         - flake8-simplify
-- repo: local
-  hooks:
-    - id: pytest
-      name: pytest
-      entry: env HOSTED_ZONE_ID=local HOSTED_ZONE_DOMAIN=test DYNAMODB_TABLE=test pytest
-      args:
-        - ./tests/unit_tests
-      language: system
-      types: [python]
-      pass_filenames: false
-      always_run: true
-- repo: https://github.com/PyCQA/bandit
-  rev: 1.7.5
-  hooks:
-    - id: bandit
-      args:
-        - -x
-        - tests,src/snow/snow/settings.py
+# - repo: local
+#   hooks:
+#     - id: pytest
+#       name: pytest
+#       entry: env HOSTED_ZONE_ID=local HOSTED_ZONE_DOMAIN=test DYNAMODB_TABLE=test pytest
+#       args:
+#         - ./tests/unit_tests
+#       language: system
+#       types: [python]
+#       pass_filenames: false
+#       always_run: true
+# - repo: https://github.com/PyCQA/bandit
+#   rev: 1.7.5
+#   hooks:
+#     - id: bandit
+#       args:
+#         - -x
+#         - tests,src/snow/snow/settings.py

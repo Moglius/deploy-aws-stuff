@@ -52,3 +52,15 @@ src/data/albs_json.tfvars
 src/data/ebs_attachments.tfvars
 src/data/ebs_volumes.tfvars
 src/tf_lb/providers.tf
+src/tf_mtls/client1.csr
+src/tf_mtls/client1.key
+src/tf_mtls/client1.pem
+src/tf_mtls/my_client.csr
+src/tf_mtls/my_client.key
+src/tf_mtls/my_client.pem
+src/tf_mtls/my_srv.csr
+src/tf_mtls/my_srv.key
+src/tf_mtls/my_srv.pem
+src/tf_mtls/RootCA.key
+src/tf_mtls/RootCA.pem
+src/tf_mtls/truststore.pem
