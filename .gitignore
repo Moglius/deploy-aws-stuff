@@ -64,3 +64,5 @@ src/tf_mtls/my_srv.pem
 src/tf_mtls/RootCA.key
 src/tf_mtls/RootCA.pem
 src/tf_mtls/truststore.pem
+lambda/package/*
+lambda/my_deployment_package.zip
